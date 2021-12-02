@@ -1,0 +1,41 @@
+
+<br>
+<br>
+
+<mat-card class="example-card">
+    <mat-card-actions align="end">
+        <app-todo-search (searchEvent)="searchTasks($event)"></app-todo-search>
+        <button mat-button (click)="createTodo()">
+            <mat-icon>add</mat-icon> Create task
+        </button>
+    </mat-card-actions>
+    <mat-card-title>To Do List</mat-card-title>
+    <mat-card-subtitle>Maintain your daily Tasks</mat-card-subtitle>
+    <mat-card-content *ngIf="todos.length > 0">
+
+        <mat-list>
+            <mat-list-item *ngFor="let todo of todos">
+
+                <mat-checkbox fxFill [checked]="todo.completed" (change)="toggleCompleted(todo)">
+                    <span>{{todo.title}}</span> </mat-checkbox>
+                <div fxFill>
+
+                    <button matTooltip="Edit task" matTooltipPosition="above" mat-icon-button
+                        (click)="detailsTodo(todo)">
+                        <mat-icon aria-label="Example icon-button with a heart icon">info</mat-icon>
+                    </button>
+                    <button matTooltip="Edit task" matTooltipPosition="above" mat-icon-button (click)="editTodo(todo)">
+                        <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
+                    </button>
+                    <button matTooltip="Delete task" matTooltipPosition="above" mat-icon-button
+                        (click)="deleteTodo(todo)">
+                        <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+                    </button>
+                </div>
+            </mat-list-item>
+
+        </mat-list>
+
+    </mat-card-content>
+
+</mat-card>

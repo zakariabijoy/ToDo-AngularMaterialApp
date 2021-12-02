@@ -1,0 +1,48 @@
+<br />
+<br />
+
+<h2 mat-dialog-title *ngIf="data === null">Add a task</h2>
+<h2 mat-dialog-title *ngIf="data !== null">Edit a task</h2>
+
+
+
+
+<form [formGroup]="form" (submit)="onSubmit()">
+<mat-dialog-content>
+<div fxLayout="column" fxLayoutAlign="space-around center">
+    <input type="hidden" formControlName="id">
+        <mat-form-field fxFill>
+            <mat-label>Title</mat-label>
+            <input type="text" matInput formControlName="title">
+            <mat-error>Please enter a title </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFill>
+            <mat-label>Description</mat-label>
+            <input type="text" matInput formControlName="description">
+        </mat-form-field>
+        <mat-form-field fxFill>
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="type" [(value)]="selected">
+                <mat-option *ngFor="let type of todoService.types" value="{{type.id}}"  >{{type.value}}</mat-option>
+            </mat-select>
+            <mat-error>Please select a type </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFill>
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error>Please select a date </mat-error>
+        </mat-form-field>
+        </div>
+        </mat-dialog-content>
+        
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" mat-button [mat-dialog-close]="true" [disabled]="form.invalid" type="submit" *ngIf="data === null">Save</button>
+    <button mat-raised-button color="primary" mat-button [mat-dialog-close]="true" [disabled]="form.invalid" type="submit"
+        *ngIf="data !== null">Update</button>
+
+</mat-dialog-actions>
+    
+</form>
